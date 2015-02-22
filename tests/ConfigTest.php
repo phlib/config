@@ -1,6 +1,8 @@
 <?php
 
-namespace Phlib;
+namespace Phlib\Tests;
+
+use Phlib\Config;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
