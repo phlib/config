@@ -2,6 +2,7 @@
     "name": "phlib/config",
     "version": "1.0.0",
     "description": "Config",
+    "license": "LGPL-3.0",
     "authors": [
         {
             "name": "James Dempster"
