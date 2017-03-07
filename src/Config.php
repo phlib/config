@@ -14,7 +14,7 @@ namespace Phlib\Config;
  * @param mixed $default
  * @return mixed
  */
-function get(array $config, string $name, $default = false)
+function get(array $config, string $name, $default = null)
 {
     $value = $config;
     $key   = strtok($name, '.');
