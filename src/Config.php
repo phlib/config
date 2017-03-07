@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Phlib\Config;
 
@@ -15,7 +16,7 @@ class Config
      * @param mixed $default
      * @return mixed
      */
-    public static function get(array $config, $name, $default = false)
+    public static function get(array $config, string $name, $default = false)
     {
         $value = $config;
         $key   = strtok($name, '.');
@@ -38,7 +39,7 @@ class Config
      * @param mixed $value
      * @return array
      */
-    public static function set(&$array, $key, $value)
+    public static function set(array &$array, string $key, $value): array
     {
         $result = &$array;
         $keys = explode('.', $key);
@@ -64,7 +65,7 @@ class Config
      * @param string $key
      * @return array
      */
-    public static function forget(&$array, $key)
+    public static function forget(array &$array, string $key): array
     {
         $result = &$array;
         $keys = explode('.', $key);
@@ -87,7 +88,7 @@ class Config
      * @param array $arr2 Overriding config
      * @return array
      */
-    public static function override(array $arr1, array $arr2)
+    public static function override(array $arr1, array $arr2): array
     {
         foreach ($arr2 as $key => $value) {
             if (array_key_exists($key, $arr1) && is_array($value) && !array_key_exists(0, $value) && !empty($value)) {
@@ -107,7 +108,7 @@ class Config
      * @param string $prepend
      * @return array
      */
-    public static function flatten(array $config, $prepend = '')
+    public static function flatten(array $config, string $prepend = ''): array
     {
         $results = array();
         foreach ($config as $key => $value) {
@@ -127,7 +128,7 @@ class Config
      * @param array $flatConfig
      * @return array
      */
-    public static function expand(array $flatConfig)
+    public static function expand(array $flatConfig): array
     {
         ksort($flatConfig);
 
