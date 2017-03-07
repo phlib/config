@@ -1,27 +1,29 @@
 {
     "name": "phlib/config",
-    "version": "1.0.0",
-    "description": "Config",
+    "description": "Config functions",
+    "keywords": ["configuration"],
+    "type": "library",
     "license": "LGPL-3.0",
+    "homepage": "https://github.com/phlib/beanstalk",
     "authors": [
         {
-            "name": "James Dempster"
+            "name": "James Dempster",
+            "role": "developer"
+        },
+        {
+            "name": "Luke Richards",
+            "role": "developer"
         }
     ],
     "require": {
-        "php": "~5.4"
+        "php": "^7"
     },
     "autoload": {
         "psr-4": {
-            "Phlib\\": "src"
+            "Phlib\\Config\\": "src"
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.4"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Phlib\\": "tests"
-        }
+        "phpunit/phpunit": "^6"
     }
 }
