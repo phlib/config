@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-
     public function testGetStringValue()
     {
         $config = [
@@ -17,7 +16,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals('value', Config::get($config, 'one.two.three'));
+        $this->assertEquals('value', get($config, 'one.two.three'));
     }
 
     public function testGetSection()
@@ -30,7 +29,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals(['three' => 'value'], Config::get($config, 'one.two'));
+        $this->assertEquals(['three' => 'value'], get($config, 'one.two'));
     }
 
     public function testGetArrayValue()
@@ -43,7 +42,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals(['hello', 'world', 'foo', 'bar'], Config::get($config, 'one.two.three'));
+        $this->assertEquals(['hello', 'world', 'foo', 'bar'], get($config, 'one.two.three'));
     }
 
     public function testGetValueByIndex()
@@ -56,7 +55,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals('world', Config::get($config, 'one.two.three.1'));
+        $this->assertEquals('world', get($config, 'one.two.three.1'));
     }
 
     public function testGetDefault()
@@ -69,7 +68,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals('value', Config::get($config, 'one.two.three.four', 'value'));
+        $this->assertEquals('value', get($config, 'one.two.three.four', 'value'));
     }
 
     public function testSetString()
@@ -91,7 +90,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $returnVal = Config::set($config, 'one.twob', 'hello world');
+        $returnVal = set($config, 'one.twob', 'hello world');
 
         $this->assertEquals($expected, $returnVal);
         $this->assertEquals($expected, $config);
@@ -118,7 +117,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $returnVal = Config::set($config, 'one.twob', ['threeb' => 'foo bar']);
+        $returnVal = set($config, 'one.twob', ['threeb' => 'foo bar']);
 
         $this->assertEquals($expected, $returnVal);
         $this->assertEquals($expected, $config);
@@ -142,7 +141,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $returnVal = Config::set($config, 'one.two.three', 'hello world');
+        $returnVal = set($config, 'one.two.three', 'hello world');
 
         $this->assertEquals($expected, $returnVal);
         $this->assertEquals($expected, $config);
@@ -168,7 +167,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $returnVal = Config::set($config, 'one.two.three', ['four' => 'hello world']);
+        $returnVal = set($config, 'one.two.three', ['four' => 'hello world']);
 
         $this->assertEquals($expected, $returnVal);
         $this->assertEquals($expected, $config);
@@ -190,7 +189,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $returnVal = Config::forget($config, 'one.two.three');
+        $returnVal = forget($config, 'one.two.three');
 
         $this->assertEquals($expected, $returnVal);
         $this->assertEquals($expected, $config);
@@ -210,7 +209,7 @@ class ConfigTest extends TestCase
             'one' => []
         ];
 
-        $returnVal = Config::forget($config, 'one.two');
+        $returnVal = forget($config, 'one.two');
 
         $this->assertEquals($expected, $returnVal);
         $this->assertEquals($expected, $config);
@@ -233,7 +232,7 @@ class ConfigTest extends TestCase
             'three' => 'added'
         ];
 
-        $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
+        $this->assertEquals($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideNested()
@@ -275,7 +274,7 @@ class ConfigTest extends TestCase
             'four' => 'added'
         ];
 
-        $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
+        $this->assertEquals($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideArrayValues()
@@ -314,7 +313,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
+        $this->assertEquals($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideEmptyArrayValues()
@@ -345,7 +344,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
+        $this->assertEquals($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideWithMultipleParams()
@@ -354,7 +353,7 @@ class ConfigTest extends TestCase
         $configOverride1 = ['one' => 'foo bar'];
         $configOverride2 = ['one' => 'bar baz'];
 
-        $this->assertEquals($configOverride2, Config::override($defaultConfig, $configOverride1, $configOverride2));
+        $this->assertEquals($configOverride2, override($defaultConfig, $configOverride1, $configOverride2));
     }
 
     public function testFlatten()
@@ -379,7 +378,7 @@ class ConfigTest extends TestCase
             'two.other'  => 'value'
         ];
 
-        $this->assertEquals($expected, Config::flatten($config));
+        $this->assertEquals($expected, flatten($config));
     }
 
     public function testExpand()
@@ -404,6 +403,6 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals($expected, Config::expand($flatConfig));
+        $this->assertEquals($expected, expand($flatConfig));
     }
 }
