@@ -87,10 +87,18 @@ function forget(array &$array, string $key): array
  */
 function override(...$arrays): array
 {
+    $canBeOverridden = function($baseArray, $key, $value) {
+        return (array_key_exists($key, $baseArray) &&
+            is_array($value) &&
+            !array_key_exists(0, $value) &&
+            (!empty($value) || !array_key_exists(0, $baseArray[$key]))
+        );
+    };
+
     $baseArray = array_shift($arrays);
     foreach ($arrays as $array) {
         foreach ($array as $key => $value) {
-            if (array_key_exists($key, $baseArray) && is_array($value) && !array_key_exists(0, $value) && !empty($value)) {
+            if ($canBeOverridden($baseArray, $key, $value)) {
                 $baseArray[$key] = override($baseArray[$key], $array[$key]);
             } else {
                 $baseArray[$key] = $value;
