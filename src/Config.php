@@ -84,21 +84,23 @@ class Config
     /**
      * Override the values from one array with values from another array
      *
-     * @param array $arr1 Base config
-     * @param array $arr2 Overriding config
+     * @param array ...$arrays
      * @return array
      */
-    public static function override(array $arr1, array $arr2): array
+    public static function override(...$arrays): array
     {
-        foreach ($arr2 as $key => $value) {
-            if (array_key_exists($key, $arr1) && is_array($value) && !array_key_exists(0, $value) && !empty($value)) {
-                $arr1[$key] = Config::override($arr1[$key], $arr2[$key]);
-            } else {
-                $arr1[$key] = $value;
+        $baseArray = array_shift($arrays);
+        foreach ($arrays as $array) {
+            foreach ($array as $key => $value) {
+                if (array_key_exists($key, $baseArray) && is_array($value) && !array_key_exists(0, $value) && !empty($value)) {
+                    $baseArray[$key] = Config::override($baseArray[$key], $array[$key]);
+                } else {
+                    $baseArray[$key] = $value;
+                }
             }
         }
 
-        return $arr1;
+        return $baseArray;
     }
 
     /**
