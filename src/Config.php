@@ -20,7 +20,7 @@ class Config
         $value = $config;
         $key   = strtok($name, '.');
         do {
-            if (!(is_array($value) and array_key_exists($key, $value))) {
+            if (!(is_array($value) && array_key_exists($key, $value))) {
                 return $default;
             }
 
@@ -70,7 +70,7 @@ class Config
         $keys = explode('.', $key);
         while (count($keys) > 1) {
             $key = array_shift($keys);
-            if (!isset($array[$key]) or !is_array($array[$key])) {
+            if (!isset($array[$key]) || !is_array($array[$key])) {
                 return;
             }
             $array = &$array[$key];
@@ -90,7 +90,7 @@ class Config
     public static function override(array $arr1, array $arr2)
     {
         foreach ($arr2 as $key => $value) {
-            if (array_key_exists($key, $arr1) and is_array($value) and !array_key_exists(0, $value)) {
+            if (array_key_exists($key, $arr1) && is_array($value) && !array_key_exists(0, $value) && !empty($value)) {
                 $arr1[$key] = Config::override($arr1[$key], $arr2[$key]);
             } else {
                 $arr1[$key] = $value;

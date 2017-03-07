@@ -317,6 +317,37 @@ class ConfigTest extends TestCase
         $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
     }
 
+    public function testOverrideEmptyArrayValues()
+    {
+        $defaultConfig = [
+            'one' => 'hello world',
+            'two' => [
+                'twoA' => [
+                    'one',
+                    'two',
+                    'three'
+                ],
+                'other' => 'value'
+            ]
+        ];
+        $configOverride = [
+            'one' => 'foo bar',
+            'two' => [
+                'twoA' => []
+            ]
+        ];
+
+        $expected = [
+            'one' => 'foo bar',
+            'two' => [
+                'twoA' => [],
+                'other' => 'value'
+            ]
+        ];
+
+        $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
+    }
+
     public function testFlatten()
     {
         $config = [
