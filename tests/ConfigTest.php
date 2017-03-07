@@ -350,15 +350,9 @@ class ConfigTest extends TestCase
 
     public function testOverrideWithMultipleParams()
     {
-        $defaultConfig = [
-            'one' => 'hello world',
-        ];
-        $configOverride1 = [
-            'one' => 'foo bar',
-        ];
-        $configOverride2 = [
-            'one' => 'bar baz',
-        ];
+        $defaultConfig   = ['one' => 'hello world'];
+        $configOverride1 = ['one' => 'foo bar'];
+        $configOverride2 = ['one' => 'bar baz'];
 
         $this->assertEquals($configOverride2, Config::override($defaultConfig, $configOverride1, $configOverride2));
     }
