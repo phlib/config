@@ -1,10 +1,10 @@
 <?php
 
-namespace Phlib\Tests;
+namespace Phlib\Config;
 
-use Phlib\Config;
+use PHPUnit\Framework\TestCase;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends TestCase
 {
 
     public function testGetStringValue()

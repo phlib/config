@@ -1,15 +1,9 @@
 <?php
 
-namespace Phlib;
+namespace Phlib\Config;
 
-/**
- * Class Config
- *
- * @package Phlib
- */
 class Config
 {
-
     /**
      * Get config item using "dot" notation.
      *
