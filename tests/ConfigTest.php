@@ -9,119 +9,87 @@ class ConfigTest extends TestCase
 
     public function testGetStringValue()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $this->assertEquals(
-            'value',
-            Config::get($config, 'one.two.three')
-        );
+        $this->assertEquals('value', Config::get($config, 'one.two.three'));
     }
 
     public function testGetSection()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $this->assertEquals(
-            array(
-                'three' => 'value'
-            ),
-            Config::get($config, 'one.two')
-        );
+        $this->assertEquals(['three' => 'value'], Config::get($config, 'one.two'));
     }
 
     public function testGetArrayValue()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
-                    'three' => array(
-                        'hello',
-                        'world',
-                        'foo',
-                        'bar'
-                    )
-                )
-            )
-        );
+        $config = [
+            'one' => [
+                'two' => [
+                    'three' => ['hello', 'world', 'foo', 'bar']
+                ]
+            ]
+        ];
 
-        $this->assertEquals(
-            array(
-                'hello',
-                'world',
-                'foo',
-                'bar'
-            ),
-            Config::get($config, 'one.two.three')
-        );
+        $this->assertEquals(['hello', 'world', 'foo', 'bar'], Config::get($config, 'one.two.three'));
     }
 
     public function testGetValueByIndex()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
-                    'three' => array(
-                        'hello',
-                        'world',
-                        'foo',
-                        'bar'
-                    )
-                )
-            )
-        );
+        $config = [
+            'one' => [
+                'two' => [
+                    'three' => ['hello', 'world', 'foo', 'bar']
+                ]
+            ]
+        ];
 
-        $this->assertEquals(
-            'world',
-            Config::get($config, 'one.two.three.1')
-        );
+        $this->assertEquals('world', Config::get($config, 'one.two.three.1'));
     }
 
     public function testGetDefault()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'failed'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $this->assertEquals(
-            'value',
-            Config::get($config, 'one.two.three.four', 'value')
-        );
+        $this->assertEquals('value', Config::get($config, 'one.two.three.four', 'value'));
     }
 
     public function testSetString()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $expected = array(
-            'one' => array(
-                'two' => array(
+        $expected = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                ),
+                ],
                 'twob' => 'hello world'
-            )
-        );
+            ]
+        ];
 
         $returnVal = Config::set($config, 'one.twob', 'hello world');
 
@@ -131,26 +99,26 @@ class ConfigTest extends TestCase
 
     public function testSetArray()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $expected = array(
-            'one' => array(
-                'two' => array(
+        $expected = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                ),
-                'twob' => array(
+                ],
+                'twob' => [
                     'threeb' => 'foo bar'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $returnVal = Config::set($config, 'one.twob', array('threeb' => 'foo bar'));
+        $returnVal = Config::set($config, 'one.twob', ['threeb' => 'foo bar']);
 
         $this->assertEquals($expected, $returnVal);
         $this->assertEquals($expected, $config);
@@ -158,21 +126,21 @@ class ConfigTest extends TestCase
 
     public function testSetReplaceString()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $expected = array(
-            'one' => array(
-                'two' => array(
+        $expected = [
+            'one' => [
+                'two' => [
                     'three' => 'hello world'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
         $returnVal = Config::set($config, 'one.two.three', 'hello world');
 
@@ -182,25 +150,25 @@ class ConfigTest extends TestCase
 
     public function testSetReplaceArray()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $expected = array(
-            'one' => array(
-                'two' => array(
-                    'three' => array(
+        $expected = [
+            'one' => [
+                'two' => [
+                    'three' => [
                         'four' => 'hello world'
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
 
-        $returnVal = Config::set($config, 'one.two.three', array('four' => 'hello world'));
+        $returnVal = Config::set($config, 'one.two.three', ['four' => 'hello world']);
 
         $this->assertEquals($expected, $returnVal);
         $this->assertEquals($expected, $config);
@@ -208,21 +176,19 @@ class ConfigTest extends TestCase
 
     public function testUnsetValue()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $expected = array(
-            'one' => array(
-                'two' => array(
-
-                )
-            )
-        );
+        $expected = [
+            'one' => [
+                'two' => []
+            ]
+        ];
 
         $returnVal = Config::forget($config, 'one.two.three');
 
@@ -232,19 +198,17 @@ class ConfigTest extends TestCase
 
     public function testUnsetSection()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
+        $config = [
+            'one' => [
+                'two' => [
                     'three' => 'value'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $expected = array(
-            'one' => array(
-
-            )
-        );
+        $expected = [
+            'one' => []
+        ];
 
         $returnVal = Config::forget($config, 'one.two');
 
@@ -254,151 +218,151 @@ class ConfigTest extends TestCase
 
     public function testOverrideBasic()
     {
-        $defaultConfig = array(
+        $defaultConfig = [
             'one' => 'hello world',
             'two' => 'foo bar'
-        );
-        $configOverride = array(
+        ];
+        $configOverride = [
             'one'   => 'changed',
             'three' => 'added'
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             'one' => 'changed',
             'two' => 'foo bar',
             'three' => 'added'
-        );
+        ];
 
         $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
     }
 
     public function testOverrideNested()
     {
-        $defaultConfig = array(
+        $defaultConfig = [
             'one' => 'hello world',
-            'twoA' => array(
-                'twoB' => array(
+            'twoA' => [
+                'twoB' => [
                     'twoCa' => 'hello world',
                     'twoCb' => 'look ma'
-                )
-            ),
-            'three' => array(
+                ]
+            ],
+            'three' => [
                 'nested'
-            )
-        );
-        $configOverride = array(
-            'twoA' => array(
-                'twoB' => array(
+            ]
+        ];
+        $configOverride = [
+            'twoA' => [
+                'twoB' => [
                     'twoCa' => 'foo bar',
                     'twoCd' => 'new value'
-                )
-            ),
+                ]
+            ],
             'four' => 'added'
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             'one' => 'hello world',
-            'twoA' => array(
-                'twoB' => array(
+            'twoA' => [
+                'twoB' => [
                     'twoCa' => 'foo bar',
                     'twoCb' => 'look ma',
                     'twoCd' => 'new value'
-                )
-            ),
-            'three' => array(
+                ]
+            ],
+            'three' => [
                 'nested'
-            ),
+            ],
             'four' => 'added'
-        );
+        ];
 
         $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
     }
 
     public function testOverrideArrayValues()
     {
-        $defaultConfig = array(
+        $defaultConfig = [
             'one' => 'hello world',
-            'two' => array(
-                'twoA' => array(
+            'two' => [
+                'twoA' => [
                     'one',
                     'two',
                     'three'
-                ),
+                ],
                 'other' => 'value'
-            )
-        );
-        $configOverride = array(
+            ]
+        ];
+        $configOverride = [
             'one' => 'foo bar',
-            'two' => array(
-                'twoA' => array(
+            'two' => [
+                'twoA' => [
                     'four',
                     'five',
                     'six'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
-        $expected = array(
+        $expected = [
             'one' => 'foo bar',
-            'two' => array(
-                'twoA' => array(
+            'two' => [
+                'twoA' => [
                     'four',
                     'five',
                     'six'
-                ),
+                ],
                 'other' => 'value'
-            )
-        );
+            ]
+        ];
 
         $this->assertEquals($expected, Config::override($defaultConfig, $configOverride));
     }
 
     public function testFlatten()
     {
-        $config = array(
+        $config = [
             'one' => 'hello world',
-            'two' => array(
-                'twoA' => array(
+            'two' => [
+                'twoA' => [
                     'one',
                     'two',
                     'three'
-                ),
+                ],
                 'other' => 'value'
-            )
-        );
+            ]
+        ];
 
-        $expected = array(
+        $expected = [
             'one'        => 'hello world',
             'two.twoA.0' => 'one',
             'two.twoA.1' => 'two',
             'two.twoA.2' => 'three',
             'two.other'  => 'value'
-        );
+        ];
 
         $this->assertEquals($expected, Config::flatten($config));
     }
 
     public function testExpand()
     {
-        $flatConfig = array(
+        $flatConfig = [
             'one'        => 'hello world',
             'two.twoA.0' => 'one',
             'two.twoA.1' => 'two',
             'two.twoA.2' => 'three',
             'two.other'  => 'value'
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             'one' => 'hello world',
-            'two' => array(
-                'twoA' => array(
+            'two' => [
+                'twoA' => [
                     'one',
                     'two',
                     'three'
-                ),
+                ],
                 'other' => 'value'
-            )
-        );
+            ]
+        ];
 
         $this->assertEquals($expected, Config::expand($flatConfig));
     }
