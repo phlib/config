@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Phlib\Config;
 
+use Phlib\Config\Exception\InvalidArgumentException;
+
 /**
  * Get config item using "dot" notation.
  *
@@ -87,6 +89,10 @@ function forget(array &$array, string $key): array
  */
 function override(...$arrays): array
 {
+    if (count($arrays) <= 1) {
+        throw new InvalidArgumentException('Override requires at least two arrays');
+    }
+
     $canBeOverridden = function($baseArray, $key, $value) {
         return (array_key_exists($key, $baseArray) &&
             is_array($value) &&
