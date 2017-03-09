@@ -2,6 +2,7 @@
 
 namespace Phlib\Config;
 
+use Phlib\Config\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
@@ -389,6 +390,19 @@ class ConfigTest extends TestCase
         $configOverride2 = ['one' => 'bar baz'];
 
         $this->assertEquals($configOverride2, override($defaultConfig, $configOverride1, $configOverride2));
+    }
+
+    public function testOverrideWithNoParams()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        override();
+    }
+
+    public function testOverrideWithOneParam()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $defaultConfig   = ['one' => 'hello world'];
+        override($defaultConfig);
     }
 
     public function testFlatten()
