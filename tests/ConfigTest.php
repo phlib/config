@@ -392,10 +392,10 @@ class ConfigTest extends TestCase
         $this->assertEquals($configOverride2, override($defaultConfig, $configOverride1, $configOverride2));
     }
 
-    public function testOverrideWithNoParams()
+    public function testOverrideWithNoOverrides()
     {
         $this->expectException(InvalidArgumentException::class);
-        override();
+        override([]);
     }
 
     public function testOverrideWithOneParam()

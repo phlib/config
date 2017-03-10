@@ -84,12 +84,13 @@ function forget(array &$array, string $key): array
 /**
  * Override the values from one array with values from another array
  *
+ * @param array $base
  * @param array ...$arrays
  * @return array
  */
-function override(...$arrays): array
+function override(array $base, ...$arrays): array
 {
-    if (count($arrays) <= 1) {
+    if (count($arrays) == 0) {
         throw new InvalidArgumentException('Override requires at least two arrays');
     }
 
@@ -101,18 +102,17 @@ function override(...$arrays): array
         );
     };
 
-    $baseArray = array_shift($arrays);
     foreach ($arrays as $array) {
         foreach ($array as $key => $value) {
-            if ($canBeOverridden($baseArray, $key, $value)) {
-                $baseArray[$key] = override($baseArray[$key], $array[$key]);
+            if ($canBeOverridden($base, $key, $value)) {
+                $base[$key] = override($base[$key], $array[$key]);
             } else {
-                $baseArray[$key] = $value;
+                $base[$key] = $value;
             }
         }
     }
 
-    return $baseArray;
+    return $base;
 }
 
 /**
