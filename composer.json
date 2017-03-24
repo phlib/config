@@ -4,7 +4,6 @@
     "keywords": ["configuration"],
     "type": "library",
     "license": "LGPL-3.0",
-    "homepage": "https://github.com/phlib/beanstalk",
     "authors": [
         {
             "name": "James Dempster",
