@@ -252,6 +252,54 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $config);
     }
 
+    public function testUnsetValueNotExist()
+    {
+        $config = array(
+            'one' => array(
+                'two' => array(
+                    'three' => 'value'
+                )
+            )
+        );
+
+        $expected = array(
+            'one' => array(
+                'two' => array(
+                    'three' => 'value'
+                )
+            )
+        );
+
+        $returnVal = Config::forget($config, 'one.two.missing');
+
+        $this->assertEquals($expected, $returnVal);
+        $this->assertEquals($expected, $config);
+    }
+
+    public function testUnsetSectionNotExist()
+    {
+        $config = array(
+            'one' => array(
+                'two' => array(
+                    'three' => 'value'
+                )
+            )
+        );
+
+        $expected = array(
+            'one' => array(
+                'two' => array(
+                    'three' => 'value'
+                )
+            )
+        );
+
+        $returnVal = Config::forget($config, 'one.missing.three');
+
+        $this->assertEquals($expected, $returnVal);
+        $this->assertEquals($expected, $config);
+    }
+
     public function testOverrideBasic()
     {
         $defaultConfig = array(

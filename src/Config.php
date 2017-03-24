@@ -77,7 +77,7 @@ class Config
         while (count($keys) > 1) {
             $key = array_shift($keys);
             if (!isset($array[$key]) or !is_array($array[$key])) {
-                return;
+                return $result;
             }
             $array = &$array[$key];
         }
