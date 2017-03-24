@@ -1,6 +1,5 @@
 {
     "name": "phlib/config",
-    "version": "1.0.0",
     "description": "Config",
     "license": "LGPL-3.0",
     "authors": [
@@ -9,7 +8,7 @@
         }
     ],
     "require": {
-        "php": "~5.4"
+        "php": "^5.4|^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -17,7 +16,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.4"
+        "phpunit/phpunit": "^4.4"
     },
     "autoload-dev": {
         "psr-4": {
