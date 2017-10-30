@@ -105,6 +105,9 @@ function override(array $base, ...$arrays): array
     foreach ($arrays as $array) {
         foreach ($array as $key => $value) {
             if ($canBeOverridden($base, $key, $value)) {
+                if (!is_array($base[$key])) {
+                    $base[$key] = [];
+                }
                 $base[$key] = override($base[$key], $array[$key]);
             } else {
                 $base[$key] = $value;

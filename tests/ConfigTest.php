@@ -453,6 +453,20 @@ class ConfigTest extends TestCase
         override($defaultConfig);
     }
 
+    public function testIssue4FailToOverrideNonArray()
+    {
+        $arr1 = ['el1' => 'someValue'];
+        $arr2 = ['el1' => ['subEl' => 'someValue']];
+        $this->assertEquals($arr2, override($arr1, $arr2));
+    }
+
+    public function testInverseIssue4FailToOverrideNonArray()
+    {
+        $arr1 = ['el1' => ['subEl' => 'someValue']];
+        $arr2 = ['el1' => 'someValue'];
+        $this->assertEquals($arr2, override($arr1, $arr2));
+    }
+
     public function testFlatten()
     {
         $config = [
