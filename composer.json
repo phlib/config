@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^7"
+        "php": "^7|^8"
     },
     "autoload": {
         "files": ["src/Config.php"],
@@ -24,6 +24,6 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^6"
+        "phpunit/phpunit": "^6|^7|^8"
     }
 }

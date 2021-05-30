@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Add specific support for PHP v8
+
 ## [2.0.3] - 2017-10-30
 
 - Fixed issue #4 overriding a non array element in the destination array
