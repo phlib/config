@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit bootstrap="vendor/autoload.php" colors="true">
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    beStrictAboutOutputDuringTests="true"
+    colors="true"
+>
     <testsuites>
-        <testsuite name="Config Functions Test Suite">
+        <testsuite name="Phlib Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+    <!-- `filter` element is only used to support PHPUnit <=8 for PHP <=7.2 -->
     <filter>
         <whitelist>
             <directory suffix=".php">src/</directory>
         </whitelist>
     </filter>
+    <!-- END -->
+    <coverage>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
 </phpunit>
