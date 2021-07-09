@@ -1,9 +1,9 @@
 # phlib/config
 
-[![Build Status](https://img.shields.io/travis/com/phlib/config/main.svg)](https://travis-ci.com/phlib/config)
-[![Codecov](https://img.shields.io/codecov/c/github/phlib/config.svg)](https://codecov.io/gh/phlib/config)
-[![Latest Stable Version](https://img.shields.io/packagist/v/phlib/config.svg)](https://packagist.org/packages/phlib/config)
-[![Total Downloads](https://img.shields.io/packagist/dt/phlib/config.svg)](https://packagist.org/packages/phlib/config)
+[![Code Checks](https://img.shields.io/github/workflow/status/phlib/config/CodeChecks?logo=github)](https://github.com/phlib/config/actions/workflows/code-checks.yml)
+[![Codecov](https://img.shields.io/codecov/c/github/phlib/config.svg?logo=codecov)](https://codecov.io/gh/phlib/config)
+[![Latest Stable Version](https://img.shields.io/packagist/v/phlib/config.svg?logo=packagist)](https://packagist.org/packages/phlib/config)
+[![Total Downloads](https://img.shields.io/packagist/dt/phlib/config.svg?logo=packagist)](https://packagist.org/packages/phlib/config)
 ![Licence](https://img.shields.io/github/license/phlib/config.svg)
 
 ## License
