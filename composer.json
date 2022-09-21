@@ -13,7 +13,7 @@
         },
         {
             "name": "Phlib Team & Contributors",
-            "homepage": "https://github.com/phlib/logger/contributors"
+            "homepage": "https://github.com/phlib/config/contributors"
         }
     ],
     "require": {
