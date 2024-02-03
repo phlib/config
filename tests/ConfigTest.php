@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Phlib\Config;
 
 use Phlib\Config\Exception\InvalidArgumentException;
@@ -12,9 +14,9 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
-                ]
-            ]
+                    'three' => 'value',
+                ],
+            ],
         ];
 
         $this->assertSame('value', get($config, 'one.two.three'));
@@ -25,9 +27,9 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
-                ]
-            ]
+                    'three' => 'value',
+                ],
+            ],
         ];
 
         $this->assertSame(['three' => 'value'], get($config, 'one.two'));
@@ -38,9 +40,9 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => ['hello', 'world', 'foo', 'bar']
-                ]
-            ]
+                    'three' => ['hello', 'world', 'foo', 'bar'],
+                ],
+            ],
         ];
 
         $this->assertSame(['hello', 'world', 'foo', 'bar'], get($config, 'one.two.three'));
@@ -51,9 +53,9 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => ['hello', 'world', 'foo', 'bar']
-                ]
-            ]
+                    'three' => ['hello', 'world', 'foo', 'bar'],
+                ],
+            ],
         ];
 
         $this->assertSame('world', get($config, 'one.two.three.1'));
@@ -64,9 +66,9 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'failed'
-                ]
-            ]
+                    'three' => 'failed',
+                ],
+            ],
         ];
 
         $this->assertSame('value', get($config, 'one.two.three.four', 'value'));
@@ -77,18 +79,18 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
-                ]
-            ]
+                    'three' => 'value',
+                ],
+            ],
         ];
 
         $expected = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
+                    'three' => 'value',
                 ],
-                'twob' => 'hello world'
-            ]
+                'twob' => 'hello world',
+            ],
         ];
 
         $returnVal = set($config, 'one.twob', 'hello world');
@@ -102,20 +104,20 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
-                ]
-            ]
+                    'three' => 'value',
+                ],
+            ],
         ];
 
         $expected = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
+                    'three' => 'value',
                 ],
                 'twob' => [
-                    'threeb' => 'foo bar'
-                ]
-            ]
+                    'threeb' => 'foo bar',
+                ],
+            ],
         ];
 
         $returnVal = set($config, 'one.twob', ['threeb' => 'foo bar']);
@@ -129,17 +131,17 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
-                ]
-            ]
+                    'three' => 'value',
+                ],
+            ],
         ];
 
         $expected = [
             'one' => [
                 'two' => [
-                    'three' => 'hello world'
-                ]
-            ]
+                    'three' => 'hello world',
+                ],
+            ],
         ];
 
         $returnVal = set($config, 'one.two.three', 'hello world');
@@ -153,19 +155,19 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
-                ]
-            ]
+                    'three' => 'value',
+                ],
+            ],
         ];
 
         $expected = [
             'one' => [
                 'two' => [
                     'three' => [
-                        'four' => 'hello world'
-                    ]
-                ]
-            ]
+                        'four' => 'hello world',
+                    ],
+                ],
+            ],
         ];
 
         $returnVal = set($config, 'one.two.three', ['four' => 'hello world']);
@@ -179,15 +181,15 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
-                ]
-            ]
+                    'three' => 'value',
+                ],
+            ],
         ];
 
         $expected = [
             'one' => [
-                'two' => []
-            ]
+                'two' => [],
+            ],
         ];
 
         $returnVal = forget($config, 'one.two.three');
@@ -201,13 +203,13 @@ class ConfigTest extends TestCase
         $config = [
             'one' => [
                 'two' => [
-                    'three' => 'value'
-                ]
-            ]
+                    'three' => 'value',
+                ],
+            ],
         ];
 
         $expected = [
-            'one' => []
+            'one' => [],
         ];
 
         $returnVal = forget($config, 'one.two');
@@ -218,21 +220,21 @@ class ConfigTest extends TestCase
 
     public function testUnsetValueNotExist()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
-                    'three' => 'value'
-                )
-            )
-        );
+        $config = [
+            'one' => [
+                'two' => [
+                    'three' => 'value',
+                ],
+            ],
+        ];
 
-        $expected = array(
-            'one' => array(
-                'two' => array(
-                    'three' => 'value'
-                )
-            )
-        );
+        $expected = [
+            'one' => [
+                'two' => [
+                    'three' => 'value',
+                ],
+            ],
+        ];
 
         $returnVal = forget($config, 'one.two.missing');
 
@@ -242,21 +244,21 @@ class ConfigTest extends TestCase
 
     public function testUnsetSectionNotExist()
     {
-        $config = array(
-            'one' => array(
-                'two' => array(
-                    'three' => 'value'
-                )
-            )
-        );
+        $config = [
+            'one' => [
+                'two' => [
+                    'three' => 'value',
+                ],
+            ],
+        ];
 
-        $expected = array(
-            'one' => array(
-                'two' => array(
-                    'three' => 'value'
-                )
-            )
-        );
+        $expected = [
+            'one' => [
+                'two' => [
+                    'three' => 'value',
+                ],
+            ],
+        ];
 
         $returnVal = forget($config, 'one.missing.three');
 
@@ -268,17 +270,17 @@ class ConfigTest extends TestCase
     {
         $defaultConfig = [
             'one' => 'hello world',
-            'two' => 'foo bar'
+            'two' => 'foo bar',
         ];
         $configOverride = [
-            'one'   => 'changed',
-            'three' => 'added'
+            'one' => 'changed',
+            'three' => 'added',
         ];
 
         $expected = [
             'one' => 'changed',
             'two' => 'foo bar',
-            'three' => 'added'
+            'three' => 'added',
         ];
 
         $this->assertSame($expected, override($defaultConfig, $configOverride));
@@ -291,21 +293,21 @@ class ConfigTest extends TestCase
             'twoA' => [
                 'twoB' => [
                     'twoCa' => 'hello world',
-                    'twoCb' => 'look ma'
-                ]
+                    'twoCb' => 'look ma',
+                ],
             ],
             'three' => [
-                'nested'
-            ]
+                'nested',
+            ],
         ];
         $configOverride = [
             'twoA' => [
                 'twoB' => [
                     'twoCa' => 'foo bar',
-                    'twoCd' => 'new value'
-                ]
+                    'twoCd' => 'new value',
+                ],
             ],
-            'four' => 'added'
+            'four' => 'added',
         ];
 
         $expected = [
@@ -314,13 +316,13 @@ class ConfigTest extends TestCase
                 'twoB' => [
                     'twoCa' => 'foo bar',
                     'twoCb' => 'look ma',
-                    'twoCd' => 'new value'
-                ]
+                    'twoCd' => 'new value',
+                ],
             ],
             'three' => [
-                'nested'
+                'nested',
             ],
-            'four' => 'added'
+            'four' => 'added',
         ];
 
         $this->assertSame($expected, override($defaultConfig, $configOverride));
@@ -334,10 +336,10 @@ class ConfigTest extends TestCase
                 'twoA' => [
                     'one',
                     'two',
-                    'three'
+                    'three',
                 ],
-                'other' => 'value'
-            ]
+                'other' => 'value',
+            ],
         ];
         $configOverride = [
             'one' => 'foo bar',
@@ -345,9 +347,9 @@ class ConfigTest extends TestCase
                 'twoA' => [
                     'four',
                     'five',
-                    'six'
-                ]
-            ]
+                    'six',
+                ],
+            ],
         ];
 
         $expected = [
@@ -356,10 +358,10 @@ class ConfigTest extends TestCase
                 'twoA' => [
                     'four',
                     'five',
-                    'six'
+                    'six',
                 ],
-                'other' => 'value'
-            ]
+                'other' => 'value',
+            ],
         ];
 
         $this->assertSame($expected, override($defaultConfig, $configOverride));
@@ -373,24 +375,24 @@ class ConfigTest extends TestCase
                 'twoA' => [
                     'one',
                     'two',
-                    'three'
+                    'three',
                 ],
-                'other' => 'value'
-            ]
+                'other' => 'value',
+            ],
         ];
         $configOverride = [
             'one' => 'foo bar',
             'two' => [
-                'twoA' => []
-            ]
+                'twoA' => [],
+            ],
         ];
 
         $expected = [
             'one' => 'foo bar',
             'two' => [
                 'twoA' => [],
-                'other' => 'value'
-            ]
+                'other' => 'value',
+            ],
         ];
 
         $this->assertSame($expected, override($defaultConfig, $configOverride));
@@ -404,16 +406,16 @@ class ConfigTest extends TestCase
                 'twoA' => [
                     'one' => 1,
                     'two' => 2,
-                    'three' => 3
+                    'three' => 3,
                 ],
-                'other' => 'value'
-            ]
+                'other' => 'value',
+            ],
         ];
         $configOverride = [
             'one' => 'foo bar',
             'two' => [
-                'twoA' => []
-            ]
+                'twoA' => [],
+            ],
         ];
 
         $expected = [
@@ -422,10 +424,10 @@ class ConfigTest extends TestCase
                 'twoA' => [
                     'one' => 1,
                     'two' => 2,
-                    'three' => 3
+                    'three' => 3,
                 ],
-                'other' => 'value'
-            ]
+                'other' => 'value',
+            ],
         ];
 
         $this->assertSame($expected, override($defaultConfig, $configOverride));
@@ -433,7 +435,7 @@ class ConfigTest extends TestCase
 
     public function testOverrideWithMultipleParams()
     {
-        $defaultConfig   = ['one' => 'hello world'];
+        $defaultConfig = ['one' => 'hello world'];
         $configOverride1 = ['one' => 'foo bar'];
         $configOverride2 = ['one' => 'bar baz'];
 
@@ -449,7 +451,7 @@ class ConfigTest extends TestCase
     public function testOverrideWithOneParam()
     {
         $this->expectException(InvalidArgumentException::class);
-        $defaultConfig   = ['one' => 'hello world'];
+        $defaultConfig = ['one' => 'hello world'];
         override($defaultConfig);
     }
 
@@ -475,18 +477,18 @@ class ConfigTest extends TestCase
                 'twoA' => [
                     'one',
                     'two',
-                    'three'
+                    'three',
                 ],
-                'other' => 'value'
-            ]
+                'other' => 'value',
+            ],
         ];
 
         $expected = [
-            'one'        => 'hello world',
+            'one' => 'hello world',
             'two.twoA.0' => 'one',
             'two.twoA.1' => 'two',
             'two.twoA.2' => 'three',
-            'two.other'  => 'value'
+            'two.other' => 'value',
         ];
 
         $this->assertSame($expected, flatten($config));
@@ -495,11 +497,11 @@ class ConfigTest extends TestCase
     public function testExpand()
     {
         $flatConfig = [
-            'one'        => 'hello world',
+            'one' => 'hello world',
             'two.twoA.0' => 'one',
             'two.twoA.1' => 'two',
             'two.twoA.2' => 'three',
-            'two.other'  => 'value'
+            'two.other' => 'value',
         ];
 
         $expected = [
@@ -509,9 +511,9 @@ class ConfigTest extends TestCase
                 'twoA' => [
                     'one',
                     'two',
-                    'three'
+                    'three',
                 ],
-            ]
+            ],
         ];
 
         $this->assertSame($expected, expand($flatConfig));
