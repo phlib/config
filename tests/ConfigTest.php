@@ -17,7 +17,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals('value', get($config, 'one.two.three'));
+        $this->assertSame('value', get($config, 'one.two.three'));
     }
 
     public function testGetSection()
@@ -30,7 +30,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals(['three' => 'value'], get($config, 'one.two'));
+        $this->assertSame(['three' => 'value'], get($config, 'one.two'));
     }
 
     public function testGetArrayValue()
@@ -43,7 +43,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals(['hello', 'world', 'foo', 'bar'], get($config, 'one.two.three'));
+        $this->assertSame(['hello', 'world', 'foo', 'bar'], get($config, 'one.two.three'));
     }
 
     public function testGetValueByIndex()
@@ -56,7 +56,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals('world', get($config, 'one.two.three.1'));
+        $this->assertSame('world', get($config, 'one.two.three.1'));
     }
 
     public function testGetDefault()
@@ -69,7 +69,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals('value', get($config, 'one.two.three.four', 'value'));
+        $this->assertSame('value', get($config, 'one.two.three.four', 'value'));
     }
 
     public function testSetString()
@@ -93,8 +93,8 @@ class ConfigTest extends TestCase
 
         $returnVal = set($config, 'one.twob', 'hello world');
 
-        $this->assertEquals($expected, $returnVal);
-        $this->assertEquals($expected, $config);
+        $this->assertSame($expected, $returnVal);
+        $this->assertSame($expected, $config);
     }
 
     public function testSetArray()
@@ -120,8 +120,8 @@ class ConfigTest extends TestCase
 
         $returnVal = set($config, 'one.twob', ['threeb' => 'foo bar']);
 
-        $this->assertEquals($expected, $returnVal);
-        $this->assertEquals($expected, $config);
+        $this->assertSame($expected, $returnVal);
+        $this->assertSame($expected, $config);
     }
 
     public function testSetReplaceString()
@@ -144,8 +144,8 @@ class ConfigTest extends TestCase
 
         $returnVal = set($config, 'one.two.three', 'hello world');
 
-        $this->assertEquals($expected, $returnVal);
-        $this->assertEquals($expected, $config);
+        $this->assertSame($expected, $returnVal);
+        $this->assertSame($expected, $config);
     }
 
     public function testSetReplaceArray()
@@ -170,8 +170,8 @@ class ConfigTest extends TestCase
 
         $returnVal = set($config, 'one.two.three', ['four' => 'hello world']);
 
-        $this->assertEquals($expected, $returnVal);
-        $this->assertEquals($expected, $config);
+        $this->assertSame($expected, $returnVal);
+        $this->assertSame($expected, $config);
     }
 
     public function testUnsetValue()
@@ -192,8 +192,8 @@ class ConfigTest extends TestCase
 
         $returnVal = forget($config, 'one.two.three');
 
-        $this->assertEquals($expected, $returnVal);
-        $this->assertEquals($expected, $config);
+        $this->assertSame($expected, $returnVal);
+        $this->assertSame($expected, $config);
     }
 
     public function testUnsetSection()
@@ -212,8 +212,8 @@ class ConfigTest extends TestCase
 
         $returnVal = forget($config, 'one.two');
 
-        $this->assertEquals($expected, $returnVal);
-        $this->assertEquals($expected, $config);
+        $this->assertSame($expected, $returnVal);
+        $this->assertSame($expected, $config);
     }
 
     public function testUnsetValueNotExist()
@@ -236,8 +236,8 @@ class ConfigTest extends TestCase
 
         $returnVal = forget($config, 'one.two.missing');
 
-        $this->assertEquals($expected, $returnVal);
-        $this->assertEquals($expected, $config);
+        $this->assertSame($expected, $returnVal);
+        $this->assertSame($expected, $config);
     }
 
     public function testUnsetSectionNotExist()
@@ -260,8 +260,8 @@ class ConfigTest extends TestCase
 
         $returnVal = forget($config, 'one.missing.three');
 
-        $this->assertEquals($expected, $returnVal);
-        $this->assertEquals($expected, $config);
+        $this->assertSame($expected, $returnVal);
+        $this->assertSame($expected, $config);
     }
 
     public function testOverrideBasic()
@@ -281,7 +281,7 @@ class ConfigTest extends TestCase
             'three' => 'added'
         ];
 
-        $this->assertEquals($expected, override($defaultConfig, $configOverride));
+        $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideNested()
@@ -323,7 +323,7 @@ class ConfigTest extends TestCase
             'four' => 'added'
         ];
 
-        $this->assertEquals($expected, override($defaultConfig, $configOverride));
+        $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideArrayValues()
@@ -362,7 +362,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals($expected, override($defaultConfig, $configOverride));
+        $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideEmptyArrayValues()
@@ -393,7 +393,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals($expected, override($defaultConfig, $configOverride));
+        $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideEmptyArrayValuesIntoAssoc()
@@ -428,7 +428,7 @@ class ConfigTest extends TestCase
             ]
         ];
 
-        $this->assertEquals($expected, override($defaultConfig, $configOverride));
+        $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
     public function testOverrideWithMultipleParams()
@@ -437,7 +437,7 @@ class ConfigTest extends TestCase
         $configOverride1 = ['one' => 'foo bar'];
         $configOverride2 = ['one' => 'bar baz'];
 
-        $this->assertEquals($configOverride2, override($defaultConfig, $configOverride1, $configOverride2));
+        $this->assertSame($configOverride2, override($defaultConfig, $configOverride1, $configOverride2));
     }
 
     public function testOverrideWithNoOverrides()
@@ -457,14 +457,14 @@ class ConfigTest extends TestCase
     {
         $arr1 = ['el1' => 'someValue'];
         $arr2 = ['el1' => ['subEl' => 'someValue']];
-        $this->assertEquals($arr2, override($arr1, $arr2));
+        $this->assertSame($arr2, override($arr1, $arr2));
     }
 
     public function testInverseIssue4FailToOverrideNonArray()
     {
         $arr1 = ['el1' => ['subEl' => 'someValue']];
         $arr2 = ['el1' => 'someValue'];
-        $this->assertEquals($arr2, override($arr1, $arr2));
+        $this->assertSame($arr2, override($arr1, $arr2));
     }
 
     public function testFlatten()
@@ -489,7 +489,7 @@ class ConfigTest extends TestCase
             'two.other'  => 'value'
         ];
 
-        $this->assertEquals($expected, flatten($config));
+        $this->assertSame($expected, flatten($config));
     }
 
     public function testExpand()
@@ -505,15 +505,15 @@ class ConfigTest extends TestCase
         $expected = [
             'one' => 'hello world',
             'two' => [
+                'other' => 'value',
                 'twoA' => [
                     'one',
                     'two',
                     'three'
                 ],
-                'other' => 'value'
             ]
         ];
 
-        $this->assertEquals($expected, expand($flatConfig));
+        $this->assertSame($expected, expand($flatConfig));
     }
 }
