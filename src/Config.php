@@ -9,8 +9,7 @@ use Phlib\Config\Exception\InvalidArgumentException;
 /**
  * Get config item using "dot" notation.
  *
- * Function works like array_get but looks deep into the config array
- * name is a nested key key description, each key is listed separated by a full stop '.'
+ * Descends into the config array for a single value, where `$name` is each key separated by a full stop '.'
  */
 function get(array $config, string $name, mixed $default = null): mixed
 {
