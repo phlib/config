@@ -6,6 +6,19 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/phlib/config.svg?logo=packagist)](https://packagist.org/packages/phlib/config)
 ![Licence](https://img.shields.io/github/license/phlib/config.svg)
 
+```php
+$config = [
+    'db' => [
+        'host' => '10.1.0.1',
+        'username' => 'sam',
+        'password' => 'SuperSafePass',
+    ],
+];
+
+$host = \Phlib\Config\get($config, 'db.host');
+$port = \Phlib\Config\get($config, 'db.port', 3306);
+```
+
 ## License
 
 This package is free software: you can redistribute it and/or modify
