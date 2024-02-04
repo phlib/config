@@ -11,13 +11,6 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <!-- `filter` element is only used to support PHPUnit <=8 for PHP <=7.2 -->
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
-        </whitelist>
-    </filter>
-    <!-- END -->
     <coverage>
         <include>
             <directory suffix=".php">src</directory>
