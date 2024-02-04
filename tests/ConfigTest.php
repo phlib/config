@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public function testGetStringValue()
+    public function testGetStringValue(): void
     {
         $config = [
             'one' => [
@@ -22,7 +22,7 @@ class ConfigTest extends TestCase
         $this->assertSame('value', get($config, 'one.two.three'));
     }
 
-    public function testGetSection()
+    public function testGetSection(): void
     {
         $config = [
             'one' => [
@@ -35,7 +35,7 @@ class ConfigTest extends TestCase
         $this->assertSame(['three' => 'value'], get($config, 'one.two'));
     }
 
-    public function testGetArrayValue()
+    public function testGetArrayValue(): void
     {
         $config = [
             'one' => [
@@ -48,7 +48,7 @@ class ConfigTest extends TestCase
         $this->assertSame(['hello', 'world', 'foo', 'bar'], get($config, 'one.two.three'));
     }
 
-    public function testGetValueByIndex()
+    public function testGetValueByIndex(): void
     {
         $config = [
             'one' => [
@@ -61,7 +61,7 @@ class ConfigTest extends TestCase
         $this->assertSame('world', get($config, 'one.two.three.1'));
     }
 
-    public function testGetDefault()
+    public function testGetDefault(): void
     {
         $config = [
             'one' => [
@@ -74,7 +74,7 @@ class ConfigTest extends TestCase
         $this->assertSame('value', get($config, 'one.two.three.four', 'value'));
     }
 
-    public function testSetString()
+    public function testSetString(): void
     {
         $config = [
             'one' => [
@@ -99,7 +99,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $config);
     }
 
-    public function testSetArray()
+    public function testSetArray(): void
     {
         $config = [
             'one' => [
@@ -126,7 +126,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $config);
     }
 
-    public function testSetReplaceString()
+    public function testSetReplaceString(): void
     {
         $config = [
             'one' => [
@@ -150,7 +150,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $config);
     }
 
-    public function testSetReplaceArray()
+    public function testSetReplaceArray(): void
     {
         $config = [
             'one' => [
@@ -176,7 +176,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $config);
     }
 
-    public function testUnsetValue()
+    public function testUnsetValue(): void
     {
         $config = [
             'one' => [
@@ -198,7 +198,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $config);
     }
 
-    public function testUnsetSection()
+    public function testUnsetSection(): void
     {
         $config = [
             'one' => [
@@ -218,7 +218,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $config);
     }
 
-    public function testUnsetValueNotExist()
+    public function testUnsetValueNotExist(): void
     {
         $config = [
             'one' => [
@@ -242,7 +242,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $config);
     }
 
-    public function testUnsetSectionNotExist()
+    public function testUnsetSectionNotExist(): void
     {
         $config = [
             'one' => [
@@ -266,7 +266,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $config);
     }
 
-    public function testOverrideBasic()
+    public function testOverrideBasic(): void
     {
         $defaultConfig = [
             'one' => 'hello world',
@@ -286,7 +286,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
-    public function testOverrideNested()
+    public function testOverrideNested(): void
     {
         $defaultConfig = [
             'one' => 'hello world',
@@ -328,7 +328,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
-    public function testOverrideArrayValues()
+    public function testOverrideArrayValues(): void
     {
         $defaultConfig = [
             'one' => 'hello world',
@@ -367,7 +367,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
-    public function testOverrideEmptyArrayValues()
+    public function testOverrideEmptyArrayValues(): void
     {
         $defaultConfig = [
             'one' => 'hello world',
@@ -398,7 +398,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
-    public function testOverrideEmptyArrayValuesIntoAssoc()
+    public function testOverrideEmptyArrayValuesIntoAssoc(): void
     {
         $defaultConfig = [
             'one' => 'hello world',
@@ -433,7 +433,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, override($defaultConfig, $configOverride));
     }
 
-    public function testOverrideWithMultipleParams()
+    public function testOverrideWithMultipleParams(): void
     {
         $defaultConfig = ['one' => 'hello world'];
         $configOverride1 = ['one' => 'foo bar'];
@@ -442,34 +442,34 @@ class ConfigTest extends TestCase
         $this->assertSame($configOverride2, override($defaultConfig, $configOverride1, $configOverride2));
     }
 
-    public function testOverrideWithNoOverrides()
+    public function testOverrideWithNoOverrides(): void
     {
         $this->expectException(InvalidArgumentException::class);
         override([]);
     }
 
-    public function testOverrideWithOneParam()
+    public function testOverrideWithOneParam(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $defaultConfig = ['one' => 'hello world'];
         override($defaultConfig);
     }
 
-    public function testIssue4FailToOverrideNonArray()
+    public function testIssue4FailToOverrideNonArray(): void
     {
         $arr1 = ['el1' => 'someValue'];
         $arr2 = ['el1' => ['subEl' => 'someValue']];
         $this->assertSame($arr2, override($arr1, $arr2));
     }
 
-    public function testInverseIssue4FailToOverrideNonArray()
+    public function testInverseIssue4FailToOverrideNonArray(): void
     {
         $arr1 = ['el1' => ['subEl' => 'someValue']];
         $arr2 = ['el1' => 'someValue'];
         $this->assertSame($arr2, override($arr1, $arr2));
     }
 
-    public function testFlatten()
+    public function testFlatten(): void
     {
         $config = [
             'one' => 'hello world',
@@ -494,7 +494,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, flatten($config));
     }
 
-    public function testExpand()
+    public function testExpand(): void
     {
         $flatConfig = [
             'one' => 'hello world',

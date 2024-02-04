@@ -11,11 +11,8 @@ use Phlib\Config\Exception\InvalidArgumentException;
  *
  * Function works like array_get but looks deep into the config array
  * name is a nested key key description, each key is listed separated by a full stop '.'
- *
- * @param mixed $default
- * @return mixed
  */
-function get(array $config, string $name, $default = null)
+function get(array $config, string $name, mixed $default = null): mixed
 {
     $value = $config;
     $key = strtok($name, '.');
@@ -32,10 +29,8 @@ function get(array $config, string $name, $default = null)
 
 /**
  * Set a config item to a given value using "dot" notation.
- *
- * @param mixed $value
  */
-function set(array &$array, string $key, $value): array
+function set(array &$array, string $key, mixed $value): array
 {
     $result = &$array;
     $keys = explode('.', $key);
@@ -75,16 +70,14 @@ function forget(array &$array, string $key): array
 
 /**
  * Override the values from one array with values from another array
- *
- * @param array ...$arrays
  */
-function override(array $base, ...$arrays): array
+function override(array $base, array ...$arrays): array
 {
     if (count($arrays) === 0) {
         throw new InvalidArgumentException('Override requires at least two arrays');
     }
 
-    $canBeOverridden = function ($baseArray, $key, $value) {
+    $canBeOverridden = function (array $baseArray, mixed $key, mixed $value): bool {
         return array_key_exists($key, $baseArray) &&
             is_array($value) &&
             !array_key_exists(0, $value) &&
