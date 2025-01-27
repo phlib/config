@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Phlib\Config;
@@ -8,18 +9,12 @@ use Phlib\Config\Exception\InvalidArgumentException;
 /**
  * Get config item using "dot" notation.
  *
- * Function works like array_get but looks deep into the config array
- * name is a nested key key description, each key is listed separated by a full stop '.'
- *
- * @param array $config
- * @param string $name
- * @param mixed $default
- * @return mixed
+ * Descends into the config array for a single value, where `$name` is each key separated by a full stop '.'
  */
-function get(array $config, string $name, $default = null)
+function get(array $config, string $name, mixed $default = null): mixed
 {
     $value = $config;
-    $key   = strtok($name, '.');
+    $key = strtok($name, '.');
     do {
         if (!(is_array($value) && array_key_exists($key, $value))) {
             return $default;
@@ -33,13 +28,8 @@ function get(array $config, string $name, $default = null)
 
 /**
  * Set a config item to a given value using "dot" notation.
- *
- * @param array $array
- * @param string $key
- * @param mixed $value
- * @return array
  */
-function set(array &$array, string $key, $value): array
+function set(array &$array, string $key, mixed $value): array
 {
     $result = &$array;
     $keys = explode('.', $key);
@@ -60,10 +50,6 @@ function set(array &$array, string $key, $value): array
 
 /**
  * Remove an array item from a given array using "dot" notation.
- *
- * @param array $array
- * @param string $key
- * @return array
  */
 function forget(array &$array, string $key): array
 {
@@ -83,23 +69,19 @@ function forget(array &$array, string $key): array
 
 /**
  * Override the values from one array with values from another array
- *
- * @param array $base
- * @param array ...$arrays
- * @return array
  */
-function override(array $base, ...$arrays): array
+function override(array $base, array ...$arrays): array
 {
-    if (count($arrays) == 0) {
+    if (count($arrays) === 0) {
         throw new InvalidArgumentException('Override requires at least two arrays');
     }
 
-    $canBeOverridden = function($baseArray, $key, $value) {
-        return (array_key_exists($key, $baseArray) &&
+    $canBeOverridden = function (array $baseArray, mixed $key, mixed $value): bool {
+        return array_key_exists($key, $baseArray) &&
             is_array($value) &&
             !array_key_exists(0, $value) &&
             (!empty($value) || !array_key_exists(0, $baseArray[$key]))
-        );
+        ;
     };
 
     foreach ($arrays as $array) {
@@ -120,19 +102,15 @@ function override(array $base, ...$arrays): array
 
 /**
  * Flatten a multi-dimensional associative array with dots.
- *
- * @param array $config
- * @param string $prepend
- * @return array
  */
 function flatten(array $config, string $prepend = ''): array
 {
-    $results = array();
+    $results = [];
     foreach ($config as $key => $value) {
         if (is_array($value)) {
-            $results = array_merge($results, flatten($value, $prepend.$key.'.'));
+            $results = array_merge($results, flatten($value, $prepend . $key . '.'));
         } else {
-            $results[$prepend.$key] = $value;
+            $results[$prepend . $key] = $value;
         }
     }
 
@@ -141,9 +119,6 @@ function flatten(array $config, string $prepend = ''): array
 
 /**
  * Expand an associative from "dot" notation into a multi-dimensional array.
- *
- * @param array $flatConfig
- * @return array
  */
 function expand(array $flatConfig): array
 {
@@ -154,7 +129,7 @@ function expand(array $flatConfig): array
         $target = &$result;
         $keyList = explode('.', $fullKey);
         foreach ($keyList as $pos => $key) {
-            if (count($keyList) - 1 == $pos) {
+            if (count($keyList) - 1 === $pos) {
                 $target[$key] = $value;
             } else {
                 if (!array_key_exists($key, $target)) {
@@ -167,4 +142,3 @@ function expand(array $flatConfig): array
 
     return $result;
 }
-
